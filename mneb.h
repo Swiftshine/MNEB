@@ -6,19 +6,10 @@
 
 #define UNK_SIZE 1
 
-struct Header {
-    /* 0x00 */ char mMagic[4]; // "MNCH"
-    /* 0x04 */ uint32_t mCurveEntryOffset;
-    /* 0x08 */ uint32_t m_8; // version?
-    /* 0x0C */ uint32_t mCurveEntryCount;
-    /* 0x10 */ uint32_t m_10;
-    /* 0x14 */ uint32_t m_14;
-};
-
 template <typename T>
 struct Array {
     uint32_t mCount;
-    T mItems[/* variable size */];
+    T mItems[/* mCount */];
 };
 
 struct ControlPoint {
@@ -46,7 +37,21 @@ struct CurveEntry {
     /* 0x00 */ char mMagic[4]; // "MNCN"
     /* 0x04 */ uint32_t mCurveSize; // the size of this instance of the structure
     /* 0x08 */ char mName[0x20];
-    /* 0x28 */ char m_28[0x68]; // maybe a float array?
+    /* 0x28 */ char m_28[0x68]; // maybe a float array? there's usually a float at the very end
     /* 0x90 */ CurveBlock mCurveBlock;
+};
+
+struct Header {
+    /* 0x00 */ char mMagic[4]; // "MNCH"
+    /* 0x04 */ uint32_t mCurveEntryOffset;
+    /* 0x08 */ uint32_t m_8; // version?
+    /* 0x0C */ uint32_t mCurveEntryCount;
+    /* 0x10 */ uint32_t m_10;
+    /* 0x14 */ uint32_t m_14;
+};
+
+struct MNEBFile {
+    /* 0x00 */ Header mHeader;
+    /* 0x18 */ CurveEntry mCurveEntries[/* mHeader.mCurveEntryCount */];
 };
 
