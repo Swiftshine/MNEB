@@ -23,10 +23,10 @@ struct ControlPoint {
 struct CurveBlock {
     /* 0x00 */ uint32_t m_0;
     /* 0x04 */ uint32_t m_4;
-    /* 0x08 */ int32_t mMinX;
-    /* 0x0C */ int32_t mMinY;
-    /* 0x10 */ int32_t mMaxX;
-    /* 0x14 */ int32_t mMaxY;
+    /* 0x08 */ uint32_t m_8;
+    /* 0x0C */ uint32_t mControlPointOffset;
+    /* 0x10 */ uint32_t mKnotOffset;
+    /* 0x14 */ uint32_t m_14; // some offset
     /* 0x18 */ float m_C[8]; // transforms?
     /* 0x38 */ Array<ControlPoint> mControlPoints;
     /* 0x?? */ Array<float> mKnots;
