@@ -4,6 +4,8 @@
 
 #include <cstdint>
 
+#define UNK_SIZE 1
+
 struct Header {
     /* 0x00 */ char mMagic[4]; // "MNCH"
     /* 0x04 */ uint32_t mCurveEntryOffset;
@@ -35,7 +37,7 @@ struct CurveBlock {
     /* 0x2C */ Array<ControlPoint> mControlPoints;
     /* 0x?? */ Array<float> mKnots;
     /* 0x?? */ uint32_t mUnk1; // the offset to mUnkArray2. i.e. &mUnkArray2 == (&mUnk1 + mUnk1)
-    /* 0x?? */ char mUnkData1[/* this is the space in between */ 1];
+    /* 0x?? */ char mUnkData1[UNK_SIZE]; // maybe it's animation data?
     /* 0x?? */ Array<uint32_t> mUnkArray2;
 };
 
