@@ -8,7 +8,9 @@ struct Header {
     u32 mFlags;
     u32 mCurveEntryCount;
     u32 m_10;
-    u32 m_14;
+    s16 m_14;
+    bool m_16;
+    padding[1];
 };
 
 struct ControlPoint {

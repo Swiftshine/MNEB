@@ -44,13 +44,15 @@ struct CurveEntry {
     /* 0x90 */ CurveBlock mCurveBlock;
 };
 
+// size: 0x18
 struct Header {
     /* 0x00 */ char mMagic[4]; // "MNCH"
     /* 0x04 */ uint32_t mCurveEntryOffset;
     /* 0x08 */ uint32_t mFlags; // not sure what the flags are though
     /* 0x0C */ uint32_t mCurveEntryCount;
     /* 0x10 */ uint32_t m_10;
-    /* 0x14 */ uint32_t m_14;
+    /* 0x14 */ int16_t m_14;
+    /* 0x16 */ bool m_16;
 };
 
 struct MNEBFile {
