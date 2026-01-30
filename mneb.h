@@ -27,17 +27,23 @@ struct ControlPoint {
 };
 
 // variable size
+struct CurveBlock {
+    /* 0x00 */ uint32_t m_0;
+    /* 0x04 */ uint32_t m_4;
+    /* 0x08 */ uint32_t m_8;
+    /* 0x0C */ Array<ControlPoint> mControlPoints;
+    /* 0x?? */ Array<float> mKnots;
+    /* 0x?? */ uint32_t mUnk1; // the offset to mUnkArray2. i.e. &mUnkArray2 == (&mUnk1 + mUnk1)
+    /* 0x?? */ char mUnkData1[/* this is the space in between */ 1];
+    /* 0x?? */ Array<uint32_t> mUnkArray2;
+};
+
+// variable size due to ^
 struct CurveEntry {
     /* 0x00 */ char mMagic[4]; // "MNCN"
     /* 0x04 */ uint32_t mCurveSize; // the size of this instance of the structure
     /* 0x08 */ char mName[0x20];
     /* 0x28 */ char m_28[0x68]; // maybe a float array?
-    /* 0x90 */ uint32_t mBlockSize; // the size of the rest of this struct instance?
-    /* 0x94 */ uint32_t m_94;
-    /* 0x98 */ uint32_t m_98;
-    /* 0x9C */ Array<ControlPoint> mControlPoints;
-    /* ???? */ Array<float> mKnots;
-    /* ???? */ uint32_t mUnkOffset1; // offset to the next block
-    /* ???? */ char mUnkData1[/* data in between ^. not sure what it is though */ 1];
-    /* ???? */ Array<uint32_t> mUnkArray2;
+    /* 0x90 */ CurveBlock mCurveBlock;
 };
+
