@@ -27,7 +27,7 @@ struct CurveBlock {
     /* 0x0C */ uint32_t mControlPointOffset;
     /* 0x10 */ uint32_t mKnotOffset;
     /* 0x14 */ uint32_t m_14; // some offset
-    /* 0x18 */ float m_C[8]; // transforms?
+    /* 0x18 */ float m_18[8]; // transforms?
     /* 0x38 */ Array<ControlPoint> mControlPoints;
     /* 0x?? */ Array<float> mKnots;
     /* 0x?? */ uint32_t mUnk1; // the offset to mUnkArray2. i.e. &mUnkArray2 == (&mUnk1 + mUnk1)
@@ -47,7 +47,7 @@ struct CurveEntry {
 struct Header {
     /* 0x00 */ char mMagic[4]; // "MNCH"
     /* 0x04 */ uint32_t mCurveEntryOffset;
-    /* 0x08 */ uint32_t m_8; // version?
+    /* 0x08 */ uint32_t mFlags; // not sure what the flags are though
     /* 0x0C */ uint32_t mCurveEntryCount;
     /* 0x10 */ uint32_t m_10;
     /* 0x14 */ uint32_t m_14;
