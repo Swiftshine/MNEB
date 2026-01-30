@@ -27,6 +27,9 @@ def parse(hex_data):
     
     plt.figure(figsize=(10, 10))
     
+    global_min_x, global_max_x = float('inf'), float('-inf')
+    global_min_y, global_max_y = float('inf'), float('-inf')
+
     seek_absolute(0xC)
 
     num_curves = struct.unpack(">I", hex_data[seek_pos:seek_pos + 4])[0]
@@ -48,7 +51,6 @@ def parse(hex_data):
         remaining_bytes -= 4
 
         name = hex_data[seek_pos:seek_pos + 0x20].split(b'\0')[0].decode()
-        print(f"Name: {name}")
 
         seek_relative(0x20)
         remaining_bytes -= 0x20
@@ -75,11 +77,29 @@ def parse(hex_data):
             display_points.append((control_point[0], control_point[1]))
         
         points = np.array(display_points)
+
+        if points.size > 0:
+            # calculate local extremes for the current curve
+            local_min = points.min(axis=0)
+            local_max = points.max(axis=0)
+            
+            # update global extremes
+            global_min_x = min(global_min_x, local_min[0])
+            global_max_x = max(global_max_x, local_max[0])
+            global_min_y = min(global_min_y, local_min[1])
+            global_max_y = max(global_max_y, local_max[1])
+
         plt.plot(points[:, 0], points[:, 1], '-o', label=name)
 
         # blah blah blah
         seek_relative(remaining_bytes)
     
+    print("-" * 30)
+    print(f"Global Extremes:")
+    print(f"X range: [{global_min_x}, {global_max_x}] (Delta: {global_max_x - global_min_x})")
+    print(f"Y range: [{global_min_y}, {global_max_y}] (Delta: {global_max_y - global_min_y})")
+    print("-" * 30)
+
     plt.axis('equal')
     plt.legend()
     plt.grid(True, alpha=0.3)
