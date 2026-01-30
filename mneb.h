@@ -31,7 +31,8 @@ struct CurveBlock {
     /* 0x00 */ uint32_t m_0;
     /* 0x04 */ uint32_t m_4;
     /* 0x08 */ uint32_t m_8;
-    /* 0x0C */ Array<ControlPoint> mControlPoints;
+    /* 0x0C */ float m_C[8]; // transforms?
+    /* 0x2C */ Array<ControlPoint> mControlPoints;
     /* 0x?? */ Array<float> mKnots;
     /* 0x?? */ uint32_t mUnk1; // the offset to mUnkArray2. i.e. &mUnkArray2 == (&mUnk1 + mUnk1)
     /* 0x?? */ char mUnkData1[/* this is the space in between */ 1];
