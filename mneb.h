@@ -60,6 +60,13 @@ struct KeyFrame {
     int16_t y;
 };
 
+struct KeyFrameTable {
+    int16_t mNodeIndex;
+    uint16_t mNumKeyFrames;
+    KeyFrame mKeyFrames[/* mNumKeyFrames */ UNDEFINED_SIZE];
+};
+
+
 struct CurveBlock {
     /* 0x00 */ char mMagic[4]; // MNCN
     /* 0x04 */ uint32_t mBlockSize;
@@ -80,7 +87,7 @@ struct CurveBlock {
     /* ---- */ float mKnots[/* mNumKnots */ UNDEFINED_SIZE];
     /* ---- */ Offset mTransformTableOffset;
     /* ---- */ uint8_t padding[0xC]; // explicit padding
-    /* ---- */ KeyFrame mKeyFrames[UNDEFINED_SIZE];
-    /* ---- */ uint32_t mNumKeyFrames;
-    /* ---- */ Offset mKeyFrameOffsets[/* mNumKeyFrames */ UNDEFINED_SIZE];
+    /* ---- */ KeyFrameTable mKeyFrameTables[UNDEFINED_SIZE];
+    /* ---- */ uint32_t mNumKeyFrameTables;
+    /* ---- */ Offset mKeyFrameTableOffsets[/* mNumKeyFrameTables */ UNDEFINED_SIZE];
 };
