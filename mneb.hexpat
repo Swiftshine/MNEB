@@ -40,11 +40,13 @@ struct CurveBlock {
     u32 mUnkArray2[mUnk2];
 };
 
+
 struct Transform {
-    s16 m_0;
-    s16 m_2;
-    s16 m_4;
-    s16 m_6;
+    s16 mFrame;
+    bool mActive;
+    padding[1];
+    s16 mPosX;
+    s16 mPosY;
 };
 
 struct PointTransform {
