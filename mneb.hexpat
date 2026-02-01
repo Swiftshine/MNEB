@@ -10,7 +10,7 @@ struct Header {
     u32 mFlags;
     u32 mCurveEntryCount;
     u32 m_10;
-    s16 m_14;
+    s16 mNumFrames;
     bool mIsVisible;
     padding[1];
 };
