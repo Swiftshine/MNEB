@@ -11,7 +11,7 @@ struct Header {
     u32 mCurveEntryCount;
     u32 m_10;
     s16 m_14;
-    bool m_16;
+    bool mIsVisible;
     padding[1];
 };
 
