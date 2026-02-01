@@ -40,25 +40,36 @@ struct CurveBlock {
     u32 mUnkArray2[mUnk2];
 };
 
+struct Transform {
+    s16 m_0;
+    s16 m_2;
+    s16 m_4;
+    s16 m_8;
+};
 
-struct UnkStruct {
-    u32 mOffsetToNext;
-    u32 m_4;
-    u32 m_8;
-    u32 m_C;
+struct PointTransform {
+    u16 mControlPointIndex;
+    u16 mNumTransforms;
+    
+    Transform mTransforms[mNumTransforms];
+};
+
+struct PointTransformPointer {
+    PointTransform* ptr : u32;
 };
 
 struct CurveEntry {
     char mMagic[4]; // MNCN
     u32 mEntrySize;
     char mName[0x20];
-    u8 m_28[0x68];
+    u8 m_28[0x64];
+    float m_8C;
     u32 m_90;
     u32 m_94;
     u32 m_98;
     u32 mControlPointOffset;
     u32 mKnotOffset;
-    u32 mUnkStructOffset;
+    u32 mPointTransformOffset;
     float m_A8[4];
     u32 m_B8[4];
     u32 mNumControlPoints;
@@ -66,9 +77,9 @@ struct CurveEntry {
     u32 mNumKnots;
     float mKnots[mNumKnots];
     u32 m_unk_NextOffset;
-    u8 m_unk_data[(m_unk_NextOffset - $)]; // anim data?
-    u32 mUnk2;
-    u32 mUnkArray2[mUnk2];
+    padding[(m_unk_NextOffset - $)]; // anim data?
+    u32 mNumPointTransforms;
+    PointTransformPointer mPointTransforms[mNumPointTransforms];
 };
 
 struct DemoOption {
@@ -104,5 +115,5 @@ struct DemoData {
 };
 
 Header header @ 0;
-// CurveEntry entries[header.mCurveEntryCount] @ header.mEntryOffset;
-DemoData dd @ header.mEntryOffset;
+CurveEntry entries[header.mCurveEntryCount] @ header.mEntryOffset;
+//DemoData dd @ header.mEntryOffset;
