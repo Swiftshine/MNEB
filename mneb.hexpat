@@ -44,7 +44,7 @@ struct Transform {
     s16 m_0;
     s16 m_2;
     s16 m_4;
-    s16 m_8;
+    s16 m_6;
 };
 
 struct PointTransform {
@@ -76,8 +76,8 @@ struct CurveEntry {
     ControlPoint mControlPoints[mNumControlPoints];
     u32 mNumKnots;
     float mKnots[mNumKnots];
-    u32 m_unk_NextOffset;
-    padding[(m_unk_NextOffset - $)]; // anim data?
+    u32 mTransformTableOffset;
+    padding[(mTransformTableOffset - $)]; // anim data?
     u32 mNumPointTransforms;
     PointTransformPointer mPointTransforms[mNumPointTransforms];
 };
