@@ -11,7 +11,7 @@ struct Header {
     u32 mCurveEntryCount;
     u32 m_10;
     s16 mNumFrames;
-    bool mIsVisible;
+    bool mIsAnimated;
     padding[1];
 };
 

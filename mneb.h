@@ -16,7 +16,7 @@ struct Header {
     /* 0x0C */ uint32_t mNumCurveEntries;
     /* 0x10 */ uint32_t m_10;
     /* 0x14 */ int16_t mNumFrames;
-    /* 0x16 */ bool mIsVisible;
+    /* 0x16 */ bool mIsAnimated;
 };
 
 /* Demo */
