@@ -92,10 +92,12 @@ struct CurveEntry {
     u32 mKnotOffset;
     u32 mPointTransformOffset;
     float m_A8[4];
-    //u32 m_B8[4]; // not always there...?
+    // u32 m_B8[4]; // not always there...?
     ControlPointTable mControlPointTable @ mControlPointOffset;
     KnotTable mKnotTable @ mKnotOffset;
     KeyFrameTableEx mKeyFrameTable @ mPointTransformOffset;
+    
+    padding[mEntrySize - sizeof(this)];
 };
 
 
