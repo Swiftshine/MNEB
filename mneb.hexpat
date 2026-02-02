@@ -41,7 +41,7 @@ struct CurveBlock {
 };
 
 
-struct Transform {
+struct KeyFrame {
     s16 mFrame;
     bool mActive;
     padding[1];
@@ -49,15 +49,15 @@ struct Transform {
     s16 mPosY;
 };
 
-struct PointTransform {
+struct KeyFrameSet {
     u16 mControlPointIndex;
     u16 mNumTransforms;
     
-    Transform mTransforms[mNumTransforms];
+    KeyFrame mTransforms[mNumTransforms];
 };
 
-struct PointTransformPointer {
-    PointTransform* ptr : u32;
+struct KeyFrameSetPointer {
+    KeyFrameSet* ptr : u32;
 };
 
 struct ControlPointTable {
@@ -70,13 +70,13 @@ struct KnotTable {
     float mKnots[mNum];
 };
 
-struct KeyFrameTable {
+struct KeyFrameSetTable {
     u32 mNum;
-    PointTransformPointer mKeyFrameSets[mNum];
+    KeyFrameSetPointer mKeyFrameSets[mNum];
 };
-struct KeyFrameTableEx {
-    u32 mKeyFrameTableOffset;
-    KeyFrameTable mKeyFrameTable @ mKeyFrameTableOffset;
+struct KeyFrameInfo {
+    u32 mKeyFrameSetTableOffset;
+    KeyFrameSetTable mKeyFrameTable @ mKeyFrameSetTableOffset;
 };
 
 struct CurveEntry {
@@ -90,12 +90,12 @@ struct CurveEntry {
     u32 m_98;
     u32 mControlPointOffset;
     u32 mKnotOffset;
-    u32 mPointTransformOffset;
+    u32 mKeyFrameInfoOffset;
     float m_A8[4];
     // u32 m_B8[4]; // not always there...?
     ControlPointTable mControlPointTable @ mControlPointOffset;
     KnotTable mKnotTable @ mKnotOffset;
-    KeyFrameTableEx mKeyFrameTable @ mPointTransformOffset;
+    KeyFrameInfo mKeyFrameInfo @ mKeyFrameInfoOffset;
     
     padding[mEntrySize - sizeof(this)];
 };
