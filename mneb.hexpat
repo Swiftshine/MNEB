@@ -60,6 +60,25 @@ struct PointTransformPointer {
     PointTransform* ptr : u32;
 };
 
+struct ControlPointTable {
+    u32 mNum;
+    ControlPoint mControlPoints[mNum];
+};
+
+struct KnotTable {
+    u32 mNum;
+    float mKnots[mNum];
+};
+
+struct KeyFrameTable {
+    u32 mNum;
+    PointTransformPointer mKeyFrameSets[mNum];
+};
+struct KeyFrameTableEx {
+    u32 mKeyFrameTableOffset;
+    KeyFrameTable mKeyFrameTable @ mKeyFrameTableOffset;
+};
+
 struct CurveEntry {
     char mMagic[4]; // MNCN
     u32 mEntrySize;
@@ -73,16 +92,13 @@ struct CurveEntry {
     u32 mKnotOffset;
     u32 mPointTransformOffset;
     float m_A8[4];
-    u32 m_B8[4];
-    u32 mNumControlPoints;
-    ControlPoint mControlPoints[mNumControlPoints];
-    u32 mNumKnots;
-    float mKnots[mNumKnots];
-    u32 mTransformTableOffset;
-    padding[(mTransformTableOffset - $)]; // anim data?
-    u32 mNumPointTransforms;
-    PointTransformPointer mPointTransforms[mNumPointTransforms];
+    //u32 m_B8[4]; // not always there...?
+    ControlPointTable mControlPointTable @ mControlPointOffset;
+    KnotTable mKnotTable @ mKnotOffset;
+    KeyFrameTableEx mKeyFrameTable @ mPointTransformOffset;
 };
+
+
 
 struct DemoOption {
     char mName[0x10];
